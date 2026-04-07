@@ -46,6 +46,16 @@ Each agent is a LangGraph node with typed state passing via `ResearchState`. Con
 
 The Streamlit dashboard shows each agent's activity in real time as M.A.R.A. works through a research query.
 
+![Landing page](screenshots/01_landing.png)
+
+![Planner breaking topic into sub-questions](screenshots/02_planner.png)
+
+![Researcher synthesizing findings alongside the report](screenshots/03_researcher.png)
+
+![Critic identifying knowledge gaps](screenshots/04_critic.png)
+
+![Final report with conclusion and download](screenshots/05_report.png)
+
 | Agent | Role |
 |-------|------|
 | **Planner** | Decomposes the topic into 3-5 targeted sub-questions |
@@ -99,6 +109,7 @@ MARA/
 │   ├── state.py      # ResearchState TypedDict (shared graph state)
 │   ├── nodes.py      # Agent node functions, LLM calls, and routing logic
 │   └── graph.py      # LangGraph compilation with conditional edges
+├── screenshots/       # Demo screenshots
 ├── app.py            # Streamlit UI with real-time agent activity panel
 ├── requirements.txt
 ├── .env.example
@@ -119,7 +130,7 @@ model="gemma-4-26b-a4b-it"    # MoE variant, faster
 
 ---
 
-## How It Works (Under the Hood)
+## How It Works
 
 1. **Planner** receives the topic and prompts the LLM to decompose it into 3-5 focused sub-questions, returned as a JSON array.
 
@@ -129,7 +140,7 @@ model="gemma-4-26b-a4b-it"    # MoE variant, faster
 
 4. **Gap Researcher** researches the missing questions using the same search-and-synthesize pipeline, then routes back to the Critic for re-evaluation.
 
-5. **Writer** receives all findings (original + gap research) plus the critique, and produces a structured markdown report with title, executive summary, themed sections, and conclusion.
+5. **Writer** receives all findings (original and gap research) plus the critique, and produces a structured markdown report with title, executive summary, themed sections, and conclusion.
 
 ---
 
